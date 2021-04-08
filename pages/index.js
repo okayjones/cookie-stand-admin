@@ -20,9 +20,7 @@ export default function Home() {
         {/* from https://css-tricks.com/emojis-as-favicons/ */}
       </Head>
 
-      <header className="bg-green-500 p-2 text-2xl">
-        <h1 className="">Cookie Stand Admin</h1>
-      </header>
+      <Header title="Cookie Stand Admin"/>
       
       <main className="h-full text-sm text-center">
 
@@ -50,14 +48,31 @@ export default function Home() {
             </div>
           </div>
         </form>
+        
         <div className="text-gray-500 my-8">
           <p>Report Table Coming Soon...</p>
           <p className="my-8">{NewCookieStand}</p>
         </div>
-        </main>
-      <footer className="bg-green-500 p-3 text-xs">
-        <p>©2021</p>
-      </footer>
+        
+      </main>
+      <Footer copyright="©2021"/>
     </div>
+  )
+}
+
+
+function Header(props){
+  return(
+    <header className="bg-green-500 p-2 text-2xl">
+      <h1 className="">{props.title}</h1>
+    </header> 
+  )
+}
+
+function Footer(props){
+  return(
+    <footer className="bg-green-500 p-3 text-xs">
+      <p>{props.copyright}</p>
+    </footer>
   )
 }
