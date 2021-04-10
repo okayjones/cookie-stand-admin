@@ -1,15 +1,17 @@
 import Head from 'next/head'
 import { useState } from 'react'
+import { hours } from '../assets/data'
 
 export default function CookieStandAdmin() {
   const [cookieStands, setCookieStands] = useState([])
+  const sales_placeholder = [48, 42, 30, 24, 42, 24, 36, 42, 42, 48, 36, 42, 24, 36]
 
   function onCreate(event){
     event.preventDefault();
     const newCookieStand = {
       location: event.target.location.value,
-      hourly_sales: [48, 42, 30, 24, 42, 24, 36, 42, 42, 48, 36, 42, 24, 36],
-      id: cookieStands.length
+      hourly_sales: sales_placeholder,
+      id: cookieStands.length,
     }
     setCookieStands([...cookieStands, newCookieStand]);
   }
@@ -25,6 +27,7 @@ export default function CookieStandAdmin() {
       <Header title="Cookie Stand Admin"/>
       <main className="h-full text-sm text-center">
         <CreateForm />
+        <ReportTable cookieStandsArray={cookieStands}/>
       </main>
       <Footer locations="PLACEHOLDER"/>
     </div>
@@ -38,9 +41,9 @@ export default function CookieStandAdmin() {
     )
   }
   
-  function CreateForm(props){
+  function CreateForm(){
     return(
-      <form onSubmit={onCreate} name="formData" className="flex-row p-4 mx-48 my-5 bg-green-300 rounded-md min-w-min">
+      <form onSubmit={onCreate} name="formData" className="flex-row p-4 mx-48 my-5 text-xs bg-green-300 rounded-md min-w-min">
       <h1 className="mb-4 text-lg">Create Cookie Stand</h1>
       <div className="flex">
         <label htmlFor="location" className="pr-2">Location</label>
@@ -67,9 +70,50 @@ export default function CookieStandAdmin() {
     )
   }
   
+  function ReportTable(props){
+    
+    if(cookieStands.length === 0){
+      return(
+        <div className="my-4">No Cookie Stands Avaliable</div>
+      )
+    }
+
+    const total_row = hours.map((hour, index) => (
+      props.cookieStandsArray.reduce((sum, stand) => sum + stand.hourly_sales[index], 0))
+    )
+    
+    return(
+      <table>
+        <thead>
+          <tr>
+            <th>Location</th>
+            {hours.map(hour => (<th>{hour}</th>))}
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.cookieStandsArray.map(stand => (
+            <tr>
+              <td>{stand.location}</td>
+              {stand.hourly_sales.map(hour_total => (<td>{hour_total}</td>))}
+              {stand.hourly_sales.reduce((a, b) => a + b, 0)}
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Total</th>
+            {total_row.map(total => (<th>{total}</th>))} 
+            <th>{total_row.reduce((a,b ) => a + b, 0)}</th>
+          </tr>
+        </tfoot>
+      </table>
+    ) 
+  }
+  
   function Footer(){
     return(
-      <footer className="p-3 text-xs bg-green-500">
+      <footer className="p-3 text-sm bg-green-500">
         <p>{cookieStands.length} Locations World Wide</p>
       </footer>
     )
