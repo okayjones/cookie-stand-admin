@@ -67,10 +67,10 @@ export default function CookieStandAdmin() {
     )
   }
   
-  function Footer(props){
+  function Footer(){
     return(
       <footer className="p-3 text-xs bg-green-500">
-        <p>{props.locations} Locations World Wide</p>
+        <p>{cookieStands.length} Locations World Wide</p>
       </footer>
     )
   }
