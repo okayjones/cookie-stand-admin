@@ -2,14 +2,16 @@ import Head from 'next/head'
 import { useState } from 'react'
 
 export default function CookieStandAdmin() {
-  
-  const [NewCookieStand, setNewCookieStand] = useState('')
+  const [cookieStands, setCookieStands] = useState([])
 
-  function createCookieStandHandler(event){
+  function onCreate(event){
     event.preventDefault();
-    const formData = new FormData(event.target)
-    const newCookieStand = JSON.stringify(Object.fromEntries(formData)) 
-    setNewCookieStand(newCookieStand);
+    const newCookieStand = {
+      location: event.target.location.value,
+      hourly_sales: [48, 42, 30, 24, 42, 24, 36, 42, 42, 48, 36, 42, 24, 36],
+      id: cookieStands.length
+    }
+    setCookieStands([...cookieStands, newCookieStand]);
   }
   
   return (
@@ -27,10 +29,18 @@ export default function CookieStandAdmin() {
       <Footer locations="PLACEHOLDER"/>
     </div>
   )
-
+  
+  function Header(props){
+    return(
+      <header className="p-2 text-2xl bg-green-500">
+        <h1 className="">{props.title}</h1>
+      </header> 
+    )
+  }
+  
   function CreateForm(props){
     return(
-      <form onSubmit={createCookieStandHandler} name="formData" className="flex-row p-4 mx-48 my-5 bg-green-300 rounded-md min-w-min">
+      <form onSubmit={onCreate} name="formData" className="flex-row p-4 mx-48 my-5 bg-green-300 rounded-md min-w-min">
       <h1 className="mb-4 text-lg">Create Cookie Stand</h1>
       <div className="flex">
         <label htmlFor="location" className="pr-2">Location</label>
@@ -56,15 +66,7 @@ export default function CookieStandAdmin() {
     </form>
     )
   }
-
-  function Header(props){
-    return(
-      <header className="p-2 text-2xl bg-green-500">
-        <h1 className="">{props.title}</h1>
-      </header> 
-    )
-  }
-
+  
   function Footer(props){
     return(
       <footer className="p-3 text-xs bg-green-500">
