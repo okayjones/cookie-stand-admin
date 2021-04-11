@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import Link from 'next/Link'
 
 import { useState } from 'react'
 import { hours } from '../assets/data'
 import Footer from '../components/footer'
+import Header from '../components/header'
 
 export default function CookieStandAdmin() {
   const [cookieStands, setCookieStands] = useState([])
@@ -35,19 +35,6 @@ export default function CookieStandAdmin() {
       <Footer qty={cookieStands.length} />
     </div>
   )
-  
-  function Header(props){
-    return(
-      <header className="flex items-center justify-between p-3 text-2xl bg-green-500">
-        <h1 className="">{props.title}</h1>
-        <button className="px-1 text-sm rounded-sm bg-green-50">
-        <Link href="/overview">
-          <a>Overview</a>
-        </Link>
-        </button>
-      </header> 
-    )
-  }
   
   function CreateForm(){
     return(
