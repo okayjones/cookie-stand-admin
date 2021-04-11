@@ -1,6 +1,9 @@
 import Head from 'next/head'
+import Link from 'next/Link'
+
 import { useState } from 'react'
 import { hours } from '../assets/data'
+import Footer from '../components/footer'
 
 export default function CookieStandAdmin() {
   const [cookieStands, setCookieStands] = useState([])
@@ -29,41 +32,46 @@ export default function CookieStandAdmin() {
         <CreateForm />
         <ReportTable cookieStandsArray={cookieStands}/>
       </main>
-      <Footer locations="PLACEHOLDER"/>
+      <Footer qty={cookieStands.length} />
     </div>
   )
   
   function Header(props){
     return(
-      <header className="p-2 text-2xl bg-green-500">
+      <header className="flex items-center justify-between p-3 text-2xl bg-green-500">
         <h1 className="">{props.title}</h1>
+        <button className="px-1 text-sm rounded-sm bg-green-50">
+        <Link href="/overview">
+          <a>Overview</a>
+        </Link>
+        </button>
       </header> 
     )
   }
   
   function CreateForm(){
     return(
-      <form onSubmit={onCreate} name="formData" className="flex-row p-4 mx-48 my-5 text-xs bg-green-300 rounded-md min-w-min">
+      <form onSubmit={onCreate} name="formData" className="flex-row w-2/3 p-4 mx-auto my-5 text-xs bg-green-300 rounded-md">
       <h1 className="mb-4 text-lg">Create Cookie Stand</h1>
       <div className="flex">
         <label htmlFor="location" className="pr-2">Location</label>
-        <input name="location" className="flex-1 bg-blue-50"></input>
+        <input name="location" className="flex-1"></input>
       </div>
-      <div className="flex items-end justify-between pt-6 gap-x-4">
-        <div className="flex-1">
+      <div className="flex items-stretch justify-between pt-6 gap-x-2">
+        <div className="flex-1 p-2 bg-green-200 rounded-sm">
           <label htmlFor="minCustomers" className="">Maximum Customers Per Hour</label>
           <input name="minCustomers" className="w-full"></input>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 p-2 bg-green-200 rounded-sm">
           <label htmlFor="maxCustomers" className="">Minimum Customers Per Hour</label>
           <input name="maxCustomers" className="w-full"></input>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 p-2 bg-green-200 rounded-sm">
           <label htmlFor="avgCookies" className="">Average Cookies Per Sale</label>
           <input name="avgCookies" className="w-full"></input>
         </div>
-        <div className="self-stretch flex-1">
-          <input type="submit" value="Create" className="w-full h-full bg-green-500"></input>
+        <div className="flex-1 bg-green-200 rounded-sm">
+          <input type="submit" value="Create" className="w-full h-full bg-green-500 rounded-sm"></input>
         </div>
       </div>
     </form>
@@ -74,7 +82,7 @@ export default function CookieStandAdmin() {
     
     if(cookieStands.length === 0){
       return(
-        <div className="my-4">No Cookie Stands Avaliable</div>
+        <div className="my-6 text-lg text-gray-700">No Cookie Stands Avaliable</div>
       )
     }
 
@@ -83,40 +91,33 @@ export default function CookieStandAdmin() {
     )
     
     return(
-      <table>
+      <table className="w-2/3 mx-auto my-6 mb-14">
         <thead>
-          <tr>
+          <tr className="bg-green-500">
             <th>Location</th>
             {hours.map(hour => (<th>{hour}</th>))}
-            <th>Total</th>
+            <th>Totals</th>
           </tr>
         </thead>
         <tbody>
           {props.cookieStandsArray.map(stand => (
-            <tr>
-              <td>{stand.location}</td>
-              {stand.hourly_sales.map(hour_total => (<td>{hour_total}</td>))}
-              {stand.hourly_sales.reduce((a, b) => a + b, 0)}
+            <tr className="border border-gray-500 odd:bg-green-400 even:bg-green-300">
+              <td className="px-2 text-left border border-gray-500">{stand.location}</td>
+              {stand.hourly_sales.map(hour_total => (
+                <td className="border border-gray-500">{hour_total}</td>
+              ))}
+              <td>{stand.hourly_sales.reduce((a, b) => a + b, 0)}</td>
             </tr>
           ))}
         </tbody>
         <tfoot>
-          <tr>
-            <th>Total</th>
-            {total_row.map(total => (<th>{total}</th>))} 
-            <th>{total_row.reduce((a,b ) => a + b, 0)}</th>
+          <tr className="bg-green-500">
+            <th className="border border-gray-500">Totals</th>
+            {total_row.map(total => (<th className="border border-gray-500">{total}</th>))} 
+            <th className="border border-gray-500">{total_row.reduce((a,b ) => a + b, 0)}</th>
           </tr>
         </tfoot>
       </table>
     ) 
   }
-  
-  function Footer(){
-    return(
-      <footer className="p-3 text-sm bg-green-500">
-        <p>{cookieStands.length} Locations World Wide</p>
-      </footer>
-    )
-  }
-
 }
