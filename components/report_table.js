@@ -4,7 +4,7 @@ export default function ReportTable(props){
     
     if(props.cookieStandsArray.length === 0){
       return(
-        <div className="my-6 text-lg text-gray-700">No Cookie Stands Avaliable</div>
+        <div className="w-full my-6 text-lg text-gray-700">No Cookie Stands Avaliable</div>
       )
     }
 
@@ -13,10 +13,10 @@ export default function ReportTable(props){
     )
     
     return(
-      <table className="w-5/6 mx-auto my-6 border border-green-500 mb-14">
+      <table className="w-full my-6 border border-green-500 mb-14">
         <thead className="text-left">
           <tr className="bg-green-400">
-            <th className="pl-1 pr-6 py-1.5">Location</th>
+            <th className="pl-1 pr-12 py-1.5">Location</th>
             {hours.map(hour => (
                 <th className="pl-1 border border-green-500">
                   {hour}
