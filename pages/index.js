@@ -28,7 +28,7 @@ export default function CookieStandAdmin() {
       </Head>
       
       <Header title="Cookie Stand Admin"/>
-      <main className="h-full mx-auto text-sm text-center w-min lg:w-5/6">
+      <main className="w-5/6 h-full mx-auto text-sm text-center">
         <CreateForm />
         <ReportTable cookieStandsArray={cookieStands}/>
       </main>
