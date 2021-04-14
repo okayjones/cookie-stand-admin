@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import { CookieStand, fetchWithToken, postWithToken, deleteWithToken, apiUrl } from '../services/data-fetcher'
 import Head from 'next/head'
 import CookieStandHeader from './cookie-stand-header'
+import CookieStandFooter from './cookie-stand-footer'
 
 export default function CookieStandAdmin({ token, onLogout, username }) {
 
@@ -61,7 +62,7 @@ export default function CookieStandAdmin({ token, onLogout, username }) {
                 <h2>Cookie Stand Table goes here</h2>
             </main>
 
-            <h2>Cookie Stand Footer goes here</h2>
+            <CookieStandFooter reports={ cookieStands }/>
         </div>
     )
 }
