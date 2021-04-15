@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/Link'
-import Header from '../components/header'
+import Header from '../components/cookie-stand-header'
 
 
 
