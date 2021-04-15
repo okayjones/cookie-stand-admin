@@ -3,7 +3,7 @@ import axios from 'axios'
 // TODO: ask API team to supply hours array
 const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
-export const apiUrl = 'https://cookie-stand-api.herokuapp.com/api/v1/cookie-stands/';
+export const apiUrl = 'http://cookie-stand-api.herokuapp.com/api/v1/cookie-stands/';
 
 // Common practice to have a "Data Access Object" to encapsulate fetched data
 export class CookieStand {
@@ -33,11 +33,11 @@ export class CookieStand {
 
 // get a JSON Web Token from server
 export async function getToken(values) {
-    const url = "https://cookie-stand-api.herokuapp.com/api/token/";
+    const url = "http://cookie-stand-api.herokuapp.com/api/token/";
 
     const response = await axios.post(url, values);
 
-    const refreshUrl = "https://cookie-stand-api.herokuapp.com/api/token/refresh";
+    const refreshUrl = "http://cookie-stand-api.herokuapp.com/api/token/refresh";
 
     const refreshResponse = await axios.post(refreshUrl, { refresh: response.data.refresh });
 
