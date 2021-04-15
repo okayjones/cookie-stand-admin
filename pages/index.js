@@ -23,7 +23,11 @@ export default function Home() {
         setToken(null);
     }
 
-    if (!token) return <LoginForm onSubmit={ loginHandler }/>
+    if (!token) return (
+        <div className="box-border min-h-screen bg-green-50">
+            <LoginForm onSubmit={ loginHandler }/>
+        </div>
+    )
 
     return (
         <CookieStandAdmin 
