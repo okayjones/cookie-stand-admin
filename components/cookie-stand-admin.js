@@ -4,6 +4,7 @@ import { CookieStand, fetchWithToken, postWithToken, deleteWithToken, apiUrl } f
 import Head from 'next/head'
 import CookieStandHeader from './cookie-stand-header'
 import CookieStandFooter from './cookie-stand-footer'
+import CookieStandTable from './cookie-stand-table'
 
 export default function CookieStandAdmin({ token, onLogout, username }) {
 
@@ -59,7 +60,7 @@ export default function CookieStandAdmin({ token, onLogout, username }) {
 
             <main>
                 <h2>Cookie Stand Form goes here</h2>
-                <h2>Cookie Stand Table goes here</h2>
+                <CookieStandTable stands={ cookieStands } onDelete={ deleteHandler }/>
             </main>
 
             <CookieStandFooter reports={ cookieStands }/>
