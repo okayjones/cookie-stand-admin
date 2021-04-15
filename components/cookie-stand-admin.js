@@ -5,6 +5,7 @@ import Head from 'next/head'
 import CookieStandHeader from './cookie-stand-header'
 import CookieStandFooter from './cookie-stand-footer'
 import CookieStandTable from './cookie-stand-table'
+import CookieStandForm from './cookie-stand-form'
 
 export default function CookieStandAdmin({ token, onLogout, username }) {
 
@@ -50,20 +51,20 @@ export default function CookieStandAdmin({ token, onLogout, username }) {
     }
 
     return (
-        <div>
+        <div className="flex flex-col justify-between h-screen">
             <Head>
                 <title>Cookie Stand Admin</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <CookieStandHeader username={ username } onLogout={ onLogout }/>
+            <CookieStandHeader username={ username } onLogout={ onLogout } />
 
-            <main>
-                <h2>Cookie Stand Form goes here</h2>
-                <CookieStandTable stands={ cookieStands } onDelete={ deleteHandler }/>
+            <main className="flex-1 w-5/6 mx-auto">
+                <CookieStandForm onCreate={ createHandler } />
+                <CookieStandTable stands={ cookieStands } onDelete={ deleteHandler } />
             </main>
+            <CookieStandFooter reports={ cookieStands } />
 
-            <CookieStandFooter reports={ cookieStands }/>
         </div>
     )
 }
